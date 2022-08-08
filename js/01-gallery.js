@@ -28,24 +28,26 @@ galleryContainer.addEventListener("click", onClickGalleryItem);
 let modalWindow;
 
 function createModalWindow(url) {
- modalWindow = basicLightbox.create(`<img src=${url}>`)
+ modalWindow = basicLightbox.create(`<img src=${url}>`, {
+    onShow: (instance) => {window.addEventListener("keydown", callbackForEvent)},
+    onClose: (instance) => {window.removeEventListener("keydown", callbackForEvent)}
+ })
 }
 
-function callbackForEvent(event) {onPressToEscape(modalWindow)} 
+function callbackForEvent(event) {onPressToEscape(modalWindow)};
 
 function onClickGalleryItem (event) {
         event.preventDefault()
         if (event.target.nodeName !== "IMG") {return}
         createModalWindow(event.target.dataset.source)
-        modalWindow.show(window.addEventListener("keydown", callbackForEvent));     
+        modalWindow.show();    
 }
 
 function onPressToEscape(closedEl) {
     if (event.code !== "Escape") {return}
-        closedEl.close(window.removeEventListener("keydown", callbackForEvent))
+    console.log("ffff")
+        closedEl.close()
 }
-
-
 
 console.log(galleryItems);
 
