@@ -45,8 +45,7 @@ function onClickGalleryItem (event) {
 
 function onPressToEscape(closedEl) {
     if (event.code !== "Escape") {return}
-    console.log("ffff")
-        closedEl.close()
+    closedEl.close()
 }
 
 console.log(galleryItems);
