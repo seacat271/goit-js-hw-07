@@ -23,23 +23,29 @@ scriptLazyLib.crossOrigin = "anonymous";
 scriptLazyLib.referrerPolicy = "no-referrer";
 }
 
-galleryContainer.addEventListener("click", onClickGalleryItem)
+galleryContainer.addEventListener("click", onClickGalleryItem);
+
+let modalWindow;
+
+function createModalWindow(url) {
+ modalWindow = basicLightbox.create(`<img src=${url}>`)
+}
+
+function callbackForEvent(event) {onPressToEscape(modalWindow)} 
 
 function onClickGalleryItem (event) {
         event.preventDefault()
         if (event.target.nodeName !== "IMG") {return}
-        const modalWindow = basicLightbox.create(`<img src=${event.target.dataset.source}>`)
-        modalWindow.show();
-       
-        window.addEventListener("keydown", (event) => onPressToEscape(modalWindow))
+        createModalWindow(event.target.dataset.source)
+        modalWindow.show(window.addEventListener("keydown", callbackForEvent));     
 }
 
 function onPressToEscape(closedEl) {
     if (event.code !== "Escape") {return}
-    if (closedEl.visible()){
-        closedEl.close()
-    }
+        closedEl.close(window.removeEventListener("keydown", callbackForEvent))
 }
+
+
 
 console.log(galleryItems);
 
