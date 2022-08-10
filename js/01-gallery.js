@@ -9,7 +9,7 @@ return `<div class="gallery__item"><a class = "gallery__link" href="${original}"
 
 galleryContainer.innerHTML = createGalleryMarkup;
 
-if (!"loading" in HTMLImageElement.prototype){
+if ("loading" in HTMLImageElement.prototype){
     const lazyImages = document.querySelectorAll(".gallery__image")
     console.log(lazyImages)
     lazyImages.forEach(img => {
